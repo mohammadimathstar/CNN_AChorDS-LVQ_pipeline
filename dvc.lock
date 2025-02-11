@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  data_loader:
+    cmd: PYTHONPATH=. python src/stages/data.py --config=params.yaml
+    deps:
+    - path: data/PETS/test
+      hash: md5
+      md5: 0de79af86f4c3c002d001e140bd1a18f.dir
+      size: 119055609
+      nfiles: 3669
+    - path: data/PETS/train
+      hash: md5
+      md5: 7c6aab6553801637db6e251cc57f3ab9.dir
+      size: 113503522
+      nfiles: 3680
+    - path: src/stages/data.py
+      hash: md5
+      md5: 9f789b7d0aa542da08a4b6f7e3034092
+      size: 1034

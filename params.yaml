@@ -1,0 +1,54 @@
+base:
+  log_level: INFO
+  log_file: 'reports/app.log'
+  log_file_explainability: 'reports/explainability.log'
+  use_cuda: True
+
+
+data_loader:
+  data_name: "CARS"
+  num_class: 196
+  train_dir: "data/CARS/train"
+  test_dir: "data/CARS/test"
+  batch_size_train: 8
+  batch_size_test: 32
+  image_size: 224 # the size of the input images to CNN 
+
+
+feature:
+  backbone_net: 'convnext_tiny_13' # 'convnext_tiny_13', 'resnet50'
+  # resnet18, 'resnet34, resnet50, resnet50_inat, resnet101, resnet152, densenet121, densenet169, '
+  # 'densenet201, densenet161, vgg11, vgg13, vgg16, vgg19, vgg11_bn, vgg13_bn, vgg16_bn, 'vgg19_bn'
+  depth_of_net_last_layer: 768 # resnet50: 2048, convnext_tiny_13: 768
+
+
+
+train:
+  hyperparams: # params of GridSearchCV constructor
+    act_fun: 'sigmoid' #sigmoid, identity
+    sigma: 100 # the scaling factor if we use sigmoid function as act_fun    
+    num_prototypes: 1  # number of prototypes per class    
+    W1: 1
+    H1: 1
+    prototype_depth: 512 # 'Depth of the prototype and therefore also depth of convolutional output'
+    subspace_dim: 10 # the dimension of the subspace
+
+  lr_prototypes: 0.05
+  lr_lambda: 0.000001
+  lr_block: 0.0005 # for training the 1x1 conv layer and last conv layer of the underlying neural network (applicable to resnet50 and densenet121)
+  lr_net: 0.00001 # for the underlying neural network
+  momentum: 0.9 # only applicable to SGD
+  weight_decay: 0.0 
+  freeze_epochs: 10
+  num_epochs: 500
+  checkpoint_dir: 'models/checkpoints'
+
+evaluate:
+  reports_dir: 'reports'
+  metrics_file: 'metrics.json'
+  # confusion_matrix_image: 'confusion_matrix.png'
+
+explainability:
+  sample_dir: 'data/CARS/samples'
+  reports_dir: 'reports/explainations/'
+  model_path: 'models/checkpoints/best_test_model'

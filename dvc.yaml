@@ -1,0 +1,12 @@
+
+stages:
+  data_loader:
+    cmd: PYTHONPATH=. python train.py --config=params.yaml
+    deps:
+    - "data/PETS/train"
+    - "data/PETS/test"
+    - src/stages/data.py
+    # outs:
+    # - data/processed/features_embedding.npz
+   
+  
