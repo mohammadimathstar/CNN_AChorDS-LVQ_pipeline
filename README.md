@@ -1,2 +1,2 @@
 # CNN_AChorDS-LVQ_pipeline
-This is a repository implementing network analysis and topic modeling on hudoc database
+This is a repository containing the pipeline for image classification using AChorDS-LVQ. This uses DVC for pipeline creation.
